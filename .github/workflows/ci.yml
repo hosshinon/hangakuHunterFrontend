@@ -1,0 +1,22 @@
+# テスト(rspec)、コードルール(rubocop, eslint, prettier)のチェックを行う
+name: Continuous Integration
+
+# workflow の実行タイミング
+# ブランチへの push 時
+on:
+  push:
+
+# workflow が行う処理
+jobs:
+  # 処理 eslint(& prettier) のルール違反がないことをチェック
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install packages
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
