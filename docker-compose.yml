@@ -1,0 +1,11 @@
+version: '3'
+services:
+  next:
+    build:
+      dockerfile: ./Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app
+    ports:
+      - "8000:3000"
