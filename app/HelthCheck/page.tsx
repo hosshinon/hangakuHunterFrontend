@@ -4,8 +4,8 @@ const page = async () => {
   const url = 'http://host.docker.internal:3000/api/v1/health_check'
   const res = await fetch(url, {
     cache: 'no-store',
-	})
-	const health_check = await res.json()
+  })
+  const health_check = await res.json()
   return (
     <div>
       <h1>HelthCheck</h1>
