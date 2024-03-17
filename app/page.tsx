@@ -1,11 +1,16 @@
+import ShopList from './feature/ShopList'
+
 export default function Home() {
   return (
     <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <main className=" flex flex-col ">
         <div>
           <h1>ここにMAPを置く</h1>
         </div>
-        <div></div>
+        <div>
+          <h1>ここに店舗リストを置く</h1>
+          <ShopList />
+        </div>
       </main>
     </div>
   )
