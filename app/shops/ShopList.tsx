@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { getAllShops } from '../util/api/getAllShops'
 
@@ -9,11 +10,7 @@ const ShopList = async () => {
       <ul>
         {shopList.map((shop) => (
           <li key={shop.id}>
-            {shop.name}
-            {shop.postal_code}
-            {shop.address}
-            {shop.opening_hours}
-            {shop.homepage}
+            <Link href={`/shops/${shop.id}`}>{shop.name}</Link>
           </li>
         ))}
       </ul>

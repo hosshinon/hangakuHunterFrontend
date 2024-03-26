@@ -1,4 +1,4 @@
-import ShopList from './feature/ShopList'
+import ShopList from './shops/ShopList'
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
           <h1>ここにMAPを置く</h1>
         </div>
         <div>
-          <h1>ここに店舗リストを置く</h1>
+          <h1>SHOP LIST</h1>
           <ShopList />
         </div>
       </main>
