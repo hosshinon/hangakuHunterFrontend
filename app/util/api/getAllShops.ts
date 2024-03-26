@@ -1,5 +1,7 @@
-//店舗一覧取得するAPI
-export const getAllShops = async () => {
+import { Shop } from '@/app/types/Shop'
+
+//店舗一覧を取得するAPI
+export const getAllShops = async (): Promise<Shop[]> => {
   try {
     const res = await fetch('http://host.docker.internal:3000/api/v1/shops', {
       cache: 'no-store',
