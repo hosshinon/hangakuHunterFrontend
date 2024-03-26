@@ -4,7 +4,6 @@ import { getAllShops } from '../util/api/getAllShops'
 
 const ShopList = async () => {
   const shopList = await getAllShops()
-
   return (
     <div>
       <ul>
