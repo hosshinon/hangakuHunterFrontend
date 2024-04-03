@@ -1,4 +1,7 @@
+import { Discount } from './discount'
+
 export type Shop = {
+  discounts: Discount[]
   id: number
   name: string
   postal_code: string
