@@ -1,4 +1,4 @@
-import { Discount } from './discount'
+import { Discount } from './Discount'
 
 export type Shop = {
   discounts: Discount[]

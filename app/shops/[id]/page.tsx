@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import React from 'react'
-import { Discount } from '@/app/types/discount'
+import { Discount } from '@/app/types/Discount'
 import { getDetailShops } from '@/app/util/api/getDetailShop'
 
 const Shop = async ({ params }: { params: { id: string } }) => {

@@ -5,7 +5,6 @@ export type Discount = {
   description: string
   start_date: string
   end_date: string
-  discount: null
   created_at: string
   updated_at: string
   discount_rate: number
