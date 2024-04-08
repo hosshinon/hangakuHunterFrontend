@@ -11,15 +11,15 @@ const ShopList = async () => {
       <ul>
         {shopList.map((shop) => (
           <li key={shop.id}>
-            <h2>{shop.name}</h2>
-            <p>住所: {shop.address}</p>
-            {shop.discounts.length > 0 && (
-              <div>
-                <h3>割引情報</h3>
-                <ul>
-                  {shop.discounts.map((discount) => (
-                    <li key={discount.id}>
-                      <Link href={`/shops/${shop.id}`}>
+            <Link href={`/shops/${shop.id}`}>
+              <h2>{shop.name}</h2>
+              <p>住所: {shop.address}</p>
+              {shop.discounts.length > 0 && (
+                <div>
+                  <h3>割引情報</h3>
+                  <ul>
+                    {shop.discounts.map((discount) => (
+                      <li key={discount.id}>
                         <h4>{discount.title}</h4>
                         <p>{discount.description}</p>
                         <p>割引率: {discount.discount_rate}%</p>
@@ -30,12 +30,12 @@ const ShopList = async () => {
                           {new Date(discount.end_date).toLocaleDateString()}{' '}
                           まで
                         </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </Link>
           </li>
         ))}
       </ul>
