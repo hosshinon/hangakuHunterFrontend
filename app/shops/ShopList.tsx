@@ -25,9 +25,9 @@ const ShopList = async () => {
                         <p>割引率: {discount.discount_rate}%</p>
                         <p>
                           期間:{' '}
-                          {new Date(discount.start_date).toLocaleDateString()}{' '}
+                          {new Date(discount.start_time).toLocaleTimeString()}{' '}
                           から{' '}
-                          {new Date(discount.end_date).toLocaleDateString()}{' '}
+                          {new Date(discount.end_time).toLocaleTimeString()}{' '}
                           まで
                         </p>
                       </li>

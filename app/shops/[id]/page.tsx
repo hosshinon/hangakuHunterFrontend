@@ -29,10 +29,10 @@ const Shop = async ({ params }: { params: { id: string } }) => {
                 <h3>{discount.title}</h3>
                 <p>{discount.description}</p>
                 <p>
-                  開始日: {new Date(discount.start_date).toLocaleDateString()}
+                  開始日: {new Date(discount.start_time).toLocaleTimeString()}
                 </p>
                 <p>
-                  終了日: {new Date(discount.end_date).toLocaleDateString()}
+                  終了日: {new Date(discount.end_time).toLocaleTimeString()}
                 </p>
                 <p>割引率: {discount.discount_rate}%</p>
               </li>
