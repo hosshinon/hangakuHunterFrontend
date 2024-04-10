@@ -1,12 +1,12 @@
-import { notFound } from 'next/navigation'
 import React from 'react'
+import PostForm from '@/app/components/PostForm'
 import { Discount } from '@/app/types/Discount'
 import { getDetailShops } from '@/app/util/api/getDetailShop'
 
-const Shop = async ({ params }: { params: { id: string } }) => {
-  try {
-    const shop = await getDetailShops(params.id)
-    return (
+const Shop = async ({ params }: { params: { id: number } }) => {
+  const shop = await getDetailShops(params.id)
+  return (
+    <div>
       <div>
         <h1>{shop.name}</h1>
         <p>住所: {shop.address}</p>
@@ -20,7 +20,6 @@ const Shop = async ({ params }: { params: { id: string } }) => {
         </p>
         <p>緯度: {shop.latitude}</p>
         <p>経度: {shop.longitude}</p>
-
         <h2>割引情報</h2>
         {shop.discounts.length > 0 ? (
           <ul>
@@ -30,9 +29,8 @@ const Shop = async ({ params }: { params: { id: string } }) => {
                 <p>{discount.description}</p>
                 <p>
                   開始日: {new Date(discount.start_time).toLocaleTimeString()}
-                </p>
-                <p>
-                  終了日: {new Date(discount.end_time).toLocaleTimeString()}
+                  から 終了日:{' '}
+                  {new Date(discount.end_time).toLocaleTimeString()}まで
                 </p>
                 <p>割引率: {discount.discount_rate}%</p>
               </li>
@@ -42,10 +40,9 @@ const Shop = async ({ params }: { params: { id: string } }) => {
           <p>現在、この店舗には割引情報がありません。</p>
         )}
       </div>
-    )
-  } catch (error) {
-    notFound()
-  }
+      <PostForm shop_id={params.id} />
+    </div>
+  )
 }
 
 export default Shop
