@@ -10,7 +10,6 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
   const [discount_rate, setDiscount_rate] = useState<number>(0)
   const [description, setDescription] = useState<string>('')
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -20,9 +19,9 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
         start_time,
         end_time,
         discount_rate,
-        description,
+        description
       )
- 
+
       router.push('/')
       router.refresh()
     } catch (error) {

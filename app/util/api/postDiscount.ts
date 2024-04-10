@@ -4,8 +4,10 @@ export const postDiscount = async (
   start_time: string,
   end_time: string,
   discount_rate: number,
-  description: string,
+  description: string
 ) => {
+  const startTime = new Date(`2000-01-01T${start_time}:00`)
+  const endTime = new Date(`2000-01-01T${end_time}:00`)
   const res = await fetch(
     `http://host.docker.internal:3000/api/v1/shops/${shop_id}/discounts`,
     {
@@ -14,10 +16,10 @@ export const postDiscount = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        start_time,
-        end_time,
+        start_time: startTime.toISOString(),
+        end_time: endTime.toISOString(),
         discount_rate,
-        description
+        description,
       }),
     }
   )
