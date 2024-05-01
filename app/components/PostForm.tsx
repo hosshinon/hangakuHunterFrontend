@@ -5,6 +5,7 @@ import { postDiscount } from '../util/api/postDiscount'
 
 const PostForm = ({ shop_id }: { shop_id: number }) => {
   const router = useRouter()
+  const [title, setTitle] = useState<string>('')
   const [start_time, setStart_time] = useState<string>('')
   const [end_time, setEnd_time] = useState<string>('')
   const [discount_rate, setDiscount_rate] = useState<number>(0)
@@ -12,27 +13,45 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    console.log(
+      shop_id,
+      title,
+      start_time,
+      end_time,
+      discount_rate,
+      description,
+    )
     try {
       await postDiscount(
         shop_id,
+        title,
         start_time,
         end_time,
         discount_rate,
-        description
+        description,
       )
 
       router.push('/')
       router.refresh()
     } catch (error) {
-      alert(`投稿に失敗しました+${error}`)
+      console.error('投稿エラー:', error)
+      alert(`フェッチに失敗しました: ${error.message}`)
     }
   }
 
   return (
-    <div>
+    <div className="bg-green-400">
       <h2>割引情報を投稿する</h2>
       <form onSubmit={handleSubmit}>
+        <label>
+          タイトル:
+          <input
+            type="text"
+            name="title"
+            required
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </label>
         <label>
           開始時間:
           <input
@@ -69,7 +88,6 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
           説明:
           <textarea
             name="description"
-            required
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </label>

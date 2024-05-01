@@ -6,7 +6,7 @@ export const getDetailShops = async (id: number): Promise<Shop | null> => {
       `http://host.docker.internal:3000/api/v1/shops/${id}`,
       {
         cache: 'no-store',
-      }
+      },
     )
 
     if (!res.ok) {
