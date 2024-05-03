@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Shop } from '../types/Shop'
@@ -6,39 +7,33 @@ import { getAllShops } from '../util/api/getAllShops'
 const ShopList = async () => {
   const shopList: Shop[] = await getAllShops()
   return (
-    <div>
-      <h1>店舗一覧</h1>
-      <ul>
+    <div className="container mx-auto py-8">
+      <h1 className="text-4xl font-bold mb-8 text-center">店舗一覧</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {shopList.map((shop) => (
-          <li key={shop.id}>
-            <Link href={`/shops/${shop.id}`}>
-              <h2>{shop.name}</h2>
-              <p>住所: {shop.address}</p>
-              {shop.discounts.length > 0 && (
-                <div>
-                  <h3>割引情報</h3>
-                  <ul>
-                    {shop.discounts.map((discount) => (
-                      <li key={discount.id}>
-                        <h4>{discount.title}</h4>
-                        <p>{discount.description}</p>
-                        <p>割引率: {discount.discount_rate}%</p>
-                        <p>
-                          期間:{' '}
-                          {new Date(discount.start_time).toLocaleTimeString()}{' '}
-                          から{' '}
-                          {new Date(discount.end_time).toLocaleTimeString()}{' '}
-                          まで
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </Link>
-          </li>
+          <Link key={shop.id} href={`/shops/${shop.id}`}>
+            <div className="card bg-base-100 shadow-xl">
+              <figure>
+                <Image
+                  src="/sample_shop.jpg"
+                  alt="Sample Image"
+                  width={500}
+                  height={500}
+                  objectFit="contain"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{shop.name}</h2>
+                <p>{shop.address}</p>
+                {shop.discounts.length > 0 && (
+                  <div className="badge badge-accent">割引情報あり</div>
+                )}
+              </div>
+            </div>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }

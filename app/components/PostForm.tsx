@@ -19,7 +19,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
       start_time,
       end_time,
       discount_rate,
-      description,
+      description
     )
     try {
       await postDiscount(
@@ -28,7 +28,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
         start_time,
         end_time,
         discount_rate,
-        description,
+        description
       )
 
       router.push('/')
@@ -40,59 +40,82 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
   }
 
   return (
-    <div className="bg-green-400">
-      <h2>割引情報を投稿する</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          タイトル:
+    <div className="container mx-auto py-8">
+      <h2 className="text-2xl font-bold mb-4">割引情報を投稿する</h2>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-base-200 p-6 rounded-lg shadow-md"
+      >
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">タイトル</span>
+          </label>
           <input
             type="text"
             name="title"
             required
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
+            className="input input-bordered"
           />
-        </label>
-        <label>
-          開始時間:
+        </div>
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">開始時間</span>
+          </label>
           <input
             type="time"
             name="start_time"
             required
+            value={start_time}
             onChange={(e) => setStart_time(e.target.value)}
+            className="input input-bordered"
           />
-        </label>
-        <br />
-        <label>
-          終了時間:
+        </div>
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">終了時間</span>
+          </label>
           <input
             type="time"
             name="end_time"
             required
+            value={end_time}
             onChange={(e) => setEnd_time(e.target.value)}
+            className="input input-bordered"
           />
-        </label>
-        <br />
-        <label>
-          割引率(%):
+        </div>
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">割引率(%)</span>
+          </label>
           <input
             type="number"
             name="discount_rate"
             min="0"
             max="100"
             required
+            value={discount_rate}
             onChange={(e) => setDiscount_rate(Number(e.target.value))}
+            className="input input-bordered"
           />
-        </label>
-        <br />
-        <label>
-          説明:
+        </div>
+        <div className="form-control mb-4">
+          <label className="label">
+            <span className="label-text">説明</span>
+          </label>
           <textarea
             name="description"
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="textarea textarea-bordered"
           ></textarea>
-        </label>
-        <br />
-        <button type="submit">投稿</button>
+        </div>
+        <div className="flex justify-center">
+          <button type="submit" className="btn btn-primary">
+            投稿する
+          </button>
+        </div>
       </form>
     </div>
   )
