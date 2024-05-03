@@ -19,7 +19,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
       start_time,
       end_time,
       discount_rate,
-      description
+      description,
     )
     try {
       await postDiscount(
@@ -28,7 +28,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
         start_time,
         end_time,
         discount_rate,
-        description
+        description,
       )
 
       router.push('/')
