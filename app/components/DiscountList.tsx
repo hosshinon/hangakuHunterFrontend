@@ -20,13 +20,21 @@ const DiscountList = ({ discounts }: DiscountListProps) => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p>
-                      開始日: {new Date(discount.start_time).toLocaleString()}
+                      開始時間:{' '}
+                      {new Date(discount.start_time).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
                     </p>
                     <p>
-                      終了日: {new Date(discount.end_time).toLocaleString()}
+                      終了時間:{' '}
+                      {new Date(discount.end_time).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
                     </p>
                   </div>
-                  <div className="badge badge-accent">
+                  <div className="badge badge-accent text-2xl">
                     割引率: {discount.discount_rate}%
                   </div>
                 </div>

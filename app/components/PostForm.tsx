@@ -69,9 +69,10 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
             required
             value={start_time}
             onChange={(e) => setStart_time(e.target.value)}
-            className="input input-bordered"
+            className="input input-bordered w-full"
           />
         </div>
+
         <div className="form-control mb-4">
           <label className="label">
             <span className="label-text">終了時間</span>
@@ -82,7 +83,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
             required
             value={end_time}
             onChange={(e) => setEnd_time(e.target.value)}
-            className="input input-bordered"
+            className="input input-bordered w-full"
           />
         </div>
         <div className="form-control mb-4">
@@ -112,7 +113,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
           ></textarea>
         </div>
         <div className="flex justify-center">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary w-full">
             投稿する
           </button>
         </div>

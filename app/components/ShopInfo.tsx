@@ -35,9 +35,6 @@ const ShopInfo = ({ shop }: ShopInfoProps) => {
             'ホームページなし'
           )}
         </p>
-        <p>
-          緯度: {shop.latitude}, 経度: {shop.longitude}
-        </p>
       </div>
     </div>
   )
