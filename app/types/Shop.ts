@@ -1,6 +1,7 @@
 import { Discount } from './Discount'
 
 export type Shop = {
+  imageUrl: string
   discounts: Discount[]
   id: number
   name: string

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React from 'react'
 import { Shop } from '../types/Shop'
 
@@ -9,10 +10,12 @@ const ShopInfo = ({ shop }: ShopInfoProps) => {
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
-        <img
+        <Image
           src={shop.imageUrl || '/sample_shop.jpg'}
           alt={shop.name}
           className="h-96 w-full object-cover"
+          width={800}
+          height={600}
         />
       </figure>
       <div className="card-body">

@@ -13,7 +13,7 @@ const ShopList = async () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {shopList.map((shop) => (
           <Link key={shop.id} href={`/shops/${shop.id}`}>
-            <div className="card bg-base-100 shadow-xl">
+            <div className="card bg-base-100 shadow-xl h-full">
               <figure>
                 <Image
                   src="/sample_shop.jpg"
@@ -23,9 +23,11 @@ const ShopList = async () => {
                   objectFit="contain"
                 />
               </figure>
-              <div className="card-body">
-                <h2 className="card-title">{shop.name}</h2>
-                <p>{shop.address}</p>
+              <div className="card-body h-full flex flex-col justify-between">
+                <div>
+                  <h2 className="card-title">{shop.name}</h2>
+                  <p>{shop.address}</p>
+                </div>
                 {shop.discounts.length > 0 && (
                   <div className="badge badge-accent">割引情報あり</div>
                 )}
