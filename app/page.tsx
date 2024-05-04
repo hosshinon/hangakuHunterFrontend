@@ -1,3 +1,4 @@
+import Map from './components/Map'
 import ShopList from './shops/ShopList'
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
     <div>
       <main className=" flex flex-col ">
         <div>
+          <Map />
           <ShopList />
         </div>
       </main>
