@@ -1,9 +1,10 @@
+// Map.js
 'use client'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import React, { useState, useEffect } from 'react'
-import { getCurrentPosition } from '../util/api/Map/getCurrentPosition'
+import { getNearbySupermarkets } from '../util/api/Map/getNearbySupermarkets'
+import { getUserPosition } from '../util/api/Map/getUserPosition'
 
-// Google Mapsの表示位置
 const containerStyle = {
   width: '100%',
   height: '50vh',
@@ -11,40 +12,50 @@ const containerStyle = {
     height: '100vh',
   },
 }
-const initialCenter = {
-  lat: 35.6804,
-  lng: 139.769,
-}
 const zoom = 14
 
 const Map = () => {
-  const [currentPosition, setCurrentPosition] = useState(initialCenter)
+  const [currentPosition, setCurrentPosition] = useState({
+    lat: 35.6804,
+    lng: 139.769,
+  })
+  const [supermarkets, setSupermarkets] = useState([])
 
   useEffect(() => {
-    getCurrentPosition()
+    getUserPosition()
       .then((coords) => {
         setCurrentPosition(coords)
+        return getNearbySupermarkets(coords.lat, coords.lng)
+      })
+      .then((supermarkets) => {
+        setSupermarkets(supermarkets)
       })
       .catch((error) => {
-        console.error('Error getting location:', error)
+        console.error('Error getting location or supermarkets:', error)
       })
   }, [])
 
   return (
-    <>
-      <LoadScript
-        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={currentPosition}
+        zoom={zoom}
       >
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={currentPosition}
-          zoom={zoom}
-        >
-          {/* 現在位置のマーカー */}
-          {currentPosition.lat && <Marker position={currentPosition} />}
-        </GoogleMap>
-      </LoadScript>
-    </>
+        {supermarkets.map((supermarket, index) => (
+          <Marker
+            key={index}
+            position={{
+              lat: supermarket.geometry.location.lat,
+              lng: supermarket.geometry.location.lng,
+            }}
+          />
+        ))}
+        {currentPosition.lat && (
+          <Marker position={currentPosition} label="You are here" />
+        )}
+      </GoogleMap>
+    </LoadScript>
   )
 }
 

@@ -1,7 +1,7 @@
 // デフォルトの座標（東京の中心部）
 const defaultCoordinates = { lat: 35.6762, lng: 139.6503 }
 
-export const getCurrentPosition = () => {
+export const getUserPosition = () => {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
       reject(new Error('Geolocation is not supported by your browser.'))

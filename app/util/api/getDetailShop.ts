@@ -15,7 +15,6 @@ export const getDetailShops = async (id: number): Promise<Shop | null> => {
     }
 
     const shop = await res.json()
-    console.log('Shop data:', shop)
     return shop
   } catch (error) {
     console.error('getDetailShop API error:', error)
