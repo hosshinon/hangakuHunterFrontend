@@ -1,68 +1,43 @@
+/* eslint-disable import/order */
 // Map.js
 'use client'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
-import React, { useState, useEffect } from 'react'
-import { getNearbySupermarkets } from '../util/api/Map/getNearbySupermarkets'
-import { getUserPosition } from '../util/api/Map/getUserPosition'
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
+import markerIcon from 'leaflet/dist/images/marker-icon.png'
+import markerShadow from 'leaflet/dist/images/marker-shadow.png'
+
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconUrl: markerIcon.src,
+  iconRetinaUrl: markerIcon2x.src,
+  shadowUrl: markerShadow.src,
+})
 
 const containerStyle = {
   width: '100%',
   height: '50vh',
-  '@media (min-width: 768px)': {
-    height: '100vh',
-  },
 }
-const zoom = 14
+const zoom = 16
+//東京を初期位置に設定
+const InitPosition = [35.681236, 139.767125]
 
 const Map = () => {
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 35.6804,
-    lng: 139.769,
-  })
-  const [supermarkets, setSupermarkets] = useState([])
-
-  useEffect(() => {
-    getUserPosition()
-      .then((coords) => {
-        setCurrentPosition(coords)
-        return getNearbySupermarkets(coords.lat, coords.lng)
-      })
-      .then((supermarkets) => {
-        setSupermarkets(supermarkets)
-      })
-      .catch((error) => {
-        console.error('Error getting location or supermarkets:', error)
-      })
-  }, [])
-
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={currentPosition}
-        zoom={zoom}
-      >
-        {supermarkets.map((supermarket, index) => (
-          <Marker
-            key={index}
-            position={{
-              lat: supermarket.geometry.location.lat,
-              lng: supermarket.geometry.location.lng,
-            }}
-            //ラベル名をスーパーマーケットの名前に設定
-            label={supermarket.name}
-            //大きさを変更
-						icon={{
-							url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-							scaledSize: new window.google.maps.Size(32, 32),
-						}}
-          />
-        ))}
-        {currentPosition.lat && (
-          <Marker position={currentPosition} label="You are here" />
-        )}
-      </GoogleMap>
-    </LoadScript>
+    <div>
+      <MapContainer center={InitPosition} zoom={zoom} style={containerStyle}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={InitPosition}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
   )
 }
 
