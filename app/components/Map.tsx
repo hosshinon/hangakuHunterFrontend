@@ -49,6 +49,13 @@ const Map = () => {
               lat: supermarket.geometry.location.lat,
               lng: supermarket.geometry.location.lng,
             }}
+            //ラベル名をスーパーマーケットの名前に設定
+            label={supermarket.name}
+            //大きさを変更
+						icon={{
+							url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+							scaledSize: new window.google.maps.Size(32, 32),
+						}}
           />
         ))}
         {currentPosition.lat && (

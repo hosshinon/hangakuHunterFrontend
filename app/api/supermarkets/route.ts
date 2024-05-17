@@ -15,7 +15,6 @@ export async function GET(request) {
   try {
     const response = await fetch(url)
     const responseText = await response.text() // レスポンスをテキストとして取得
-    console.log('Response Text:', responseText) // レスポンスの内容をログに出力
 
     // レスポンスがJSON形式であるかどうかを確認
     try {
@@ -24,7 +23,7 @@ export async function GET(request) {
         console.error('Failed to fetch supermarkets:', jsonResponse)
         return NextResponse.json(
           { error: 'Failed to fetch supermarkets' },
-          { status: response.status }
+          { status: response.status },
         )
       }
       return NextResponse.json(jsonResponse.results)
@@ -32,14 +31,14 @@ export async function GET(request) {
       console.error('Response is not JSON:', responseText)
       return NextResponse.json(
         { error: 'Response is not JSON' },
-        { status: 500 }
+        { status: 500 },
       )
     }
   } catch (error) {
     console.error('Error fetching supermarkets', error)
     return NextResponse.json(
       { error: 'Error fetching supermarkets' },
-      { status: 500 }
+      { status: 500 },
     )
   }
 }
