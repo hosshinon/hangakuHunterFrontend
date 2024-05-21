@@ -14,6 +14,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import { useState } from 'react'
+import { LoadScript } from '@react-google-maps/api'
 
 // デフォルトのアイコンURLを設定
 delete L.Icon.Default.prototype._getIconUrl
@@ -30,22 +31,63 @@ const containerStyle = {
 }
 const zoom = 16
 const InitPosition = [35.681236, 139.767125]
+const InitRadius = 200
 
 // clickイベントから現在地を取得するコンポーネント
 const LocationMarker = () => {
   const [position, setPosition] = useState(InitPosition)
+  const [supermarkets, setSupermarkets] = useState([])
+
+  const handleClick = (e) => {
+    const newPosition = e.latlng
+    setPosition(newPosition)
+    fetchNearbySupermarkets(newPosition)
+  }
+
+  const fetchNearbySupermarkets = (position) => {
+    const service = new window.google.maps.places.PlacesService(
+      document.createElement('div')
+    )
+    const request = {
+      location: new window.google.maps.LatLng(position.lat, position.lng),
+      radius: InitRadius,
+      //type: ['supermarket'],
+      keyword: 'スーパーマーケット',
+    }
+
+    service.nearbySearch(request, (results, status) => {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        setSupermarkets(results)
+      } else {
+        console.error('Nearby search failed:', status)
+        setSupermarkets([])
+      }
+    })
+  }
+
   useMapEvents({
-    click(e) {
-      setPosition(e.latlng)
-    },
+    click: handleClick,
   })
 
   return position === null ? null : (
     <div>
-      <Marker position={position}>
-        <Popup>中心はここです</Popup>
-      </Marker>
       <Circle center={position} radius={500} />
+      {supermarkets.map((market, index) =>
+        market.geometry &&
+        market.geometry.location &&
+        market.geometry.location.lat() &&
+        market.geometry.location.lng() ? (
+          <Marker
+            key={index}
+            position={[
+              market.geometry.location.lat(),
+              market.geometry.location.lng(),
+            ]}
+          >
+            <Popup>{market.name}</Popup>
+          </Marker>
+        ) : null
+      )}
     </div>
   )
 }
@@ -59,8 +101,12 @@ const Map = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* クリックした場所を取得する */}
-        <LocationMarker />
+        <LoadScript
+          googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+          libraries={['places']}
+        >
+          <LocationMarker />
+        </LoadScript>
       </MapContainer>
     </div>
   )

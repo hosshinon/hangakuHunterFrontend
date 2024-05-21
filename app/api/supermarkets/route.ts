@@ -8,9 +8,10 @@ export async function GET(request) {
   const lng = searchParams.get('lng')
   console.log(`Lat: ${lat}, Lng: ${lng}`)
   const baseUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
-  const radius = 1500 // 1.5kmの範囲内
-  const type = 'supermarket'
-  const url = `${baseUrl}?location=${lat},${lng}&radius=${radius}&type=${type}&key=${apiKey}`
+  const radius = 250 // 500mの範囲内
+  const keyword = 'スーパー'
+  const language = 'ja'
+  const url = `${baseUrl}?location=${lat},${lng}&radius=${radius}&language=${language}&keyword=${keyword}&key=${apiKey}`
 
   try {
     const response = await fetch(url)
