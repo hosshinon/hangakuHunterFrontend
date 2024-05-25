@@ -15,7 +15,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import { useState } from 'react'
 import { LoadScript } from '@react-google-maps/api'
-import ShopCard from './ShopCard'
+import ShopContainer from './ShopContainer'
 
 // デフォルトのアイコンURLを設定
 delete L.Icon.Default.prototype._getIconUrl
@@ -111,7 +111,7 @@ const Map = () => {
         </LoadScript>
       </MapContainer>
 
-      <ShopCard supermarkets={supermarkets} />
+      <ShopContainer supermarkets={supermarkets} />
     </div>
   )
 }
