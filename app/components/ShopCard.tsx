@@ -8,6 +8,7 @@ type ShopCardProps = {
 }
 
 const ShopCard = ({ supermarkets, onSelectShop }: ShopCardProps) => {
+  console.log('supermarkets:', supermarkets)
   return (
     <>
       <h1 className="text-4xl font-bold mb-8 text-center">店舗一覧</h1>
@@ -25,7 +26,6 @@ const ShopCard = ({ supermarkets, onSelectShop }: ShopCardProps) => {
                   alt={shop.name}
                   width={500}
                   height={500}
-                  objectFit="contain"
                 />
               </figure>
               <div className="card-body h-full flex flex-col justify-between">

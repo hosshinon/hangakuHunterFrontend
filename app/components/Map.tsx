@@ -33,6 +33,7 @@ const containerStyle = {
 const zoom = 16
 const InitPosition: LatLngTuple = [35.681236, 139.767125]
 const InitRadius = 200
+const libraries = ['places']
 
 // マップコンポーネント
 const Map = () => {
@@ -98,18 +99,18 @@ const Map = () => {
   }
   return (
     <div>
-      <MapContainer center={InitPosition} zoom={zoom} style={containerStyle}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <LoadScript
-          googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-          libraries={['places']}
-        >
+      <LoadScript
+        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+        libraries={libraries}
+      >
+        <MapContainer center={InitPosition} zoom={zoom} style={containerStyle}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
           <LocationMarker />
-        </LoadScript>
-      </MapContainer>
+        </MapContainer>
+      </LoadScript>
 
       <ShopContainer supermarkets={supermarkets} />
     </div>
