@@ -1,6 +1,10 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Shop } from '../types/Shop'
+import { getDiscounts } from '../util/api/getDiscounts'
+import DiscountList from './DiscountList'
+import PostForm from './PostForm'
+import ShopInfo from './ShopInfo'
 
 type ShopDetailProps = {
   shop: Shop
@@ -9,11 +13,12 @@ type ShopDetailProps = {
 
 const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
   const [placeDetails, setPlaceDetails] = useState(null)
+  const [discounts, setDiscounts] = useState([])
 
   useEffect(() => {
     const getPlaceDetails = (placeId: string) => {
       const place = new google.maps.places.PlacesService(
-        document.createElement('div'),
+        document.createElement('div')
       )
       const request = {
         placeId: placeId,
@@ -48,7 +53,27 @@ const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
     if (shop.place_id) {
       getPlaceDetails(shop.place_id)
     }
-  }, [shop.place_id])
+
+    // 割引情報を取得する
+    const fetchDiscounts = async () => {
+      try {
+        const fetchedDiscounts = await getDiscounts(shop.place_id)
+        console.log('割引情報:', fetchedDiscounts)
+        if (Array.isArray(fetchedDiscounts)) {
+          setDiscounts(fetchedDiscounts)
+        } else {
+          console.error('Fetched discounts is not an array:', fetchedDiscounts)
+          setDiscounts([])
+        }
+      } catch (error) {
+        console.error('割引情報取得エラー:', error)
+        setDiscounts([])
+      }
+    }
+    fetchDiscounts()
+  }, [shop.place_id, shop.id])
+
+  console.log('Rendering ShopDetail with discounts:', discounts)
 
   return (
     <div className="card bg-base-100 shadow-xl">
@@ -58,46 +83,9 @@ const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
         </button>
         {placeDetails ? (
           <>
-            <h2 className="card-title text-2xl font-bold">
-              {placeDetails.name}
-            </h2>
-            <p className="text-gray-600">{placeDetails.formatted_address}</p>
-            {placeDetails.photos && placeDetails.photos.length > 0 && (
-              <div className="my-4">
-                <Image
-                  src={placeDetails.photos[0].getUrl()}
-                  alt={placeDetails.name}
-                  className="rounded-lg shadow-lg"
-                  width={400}
-                  height={300}
-                />
-              </div>
-            )}
-            <p className="text-blue-500">
-              ウェブサイト:{' '}
-              <a
-                href={placeDetails.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              >
-                {placeDetails.website}
-              </a>
-            </p>
-            {placeDetails.opening_hours && (
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold">営業時間:</h3>
-                <ul className="list-disc list-inside">
-                  {placeDetails.opening_hours.weekday_text.map(
-                    (text, index) => (
-                      <li key={index} className="text-gray-700">
-                        {text}
-                      </li>
-                    ),
-                  )}
-                </ul>
-              </div>
-            )}
+            <ShopInfo placeDetails={placeDetails} />
+            <DiscountList discounts={discounts} />
+            <PostForm shop_id={shop.place_id} />
           </>
         ) : (
           <p>読み込み中...</p>

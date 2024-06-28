@@ -1,44 +1,45 @@
 import Image from 'next/image'
 import React from 'react'
-import { Shop } from '../types/Shop'
 
-type ShopInfoProps = {
-  shop: Shop
-}
-
-const ShopInfo = ({ shop }: ShopInfoProps) => {
+const ShopInfo = ({ placeDetails }) => {
   return (
     <div className="card bg-base-100 shadow-xl">
-      <figure>
-        <Image
-          src={shop.imageUrl || '/sample_shop.jpg'}
-          alt={shop.name}
-          className="h-96 w-full object-cover"
-          width={800}
-          height={600}
-        />
-      </figure>
-      <div className="card-body">
-        <h1 className="card-title">{shop.name}</h1>
-        <p>{shop.address}</p>
-        <p>{shop.postal_code}</p>
-        <p>営業時間: {shop.opening_hours}</p>
-        <p>
-          ホームページ:{' '}
-          {shop.homepage ? (
-            <a
-              href={shop.homepage}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link link-primary"
-            >
-              {shop.homepage}
-            </a>
-          ) : (
-            'ホームページなし'
-          )}
-        </p>
-      </div>
+      <h2 className="card-title text-2xl font-bold">{placeDetails.name}</h2>
+      <p className="text-gray-600">{placeDetails.formatted_address}</p>
+      {placeDetails.photos && placeDetails.photos.length > 0 && (
+        <div className="my-4">
+          <Image
+            src={placeDetails.photos[0].getUrl()}
+            alt={placeDetails.name}
+            className="rounded-lg shadow-lg"
+            width={400}
+            height={300}
+          />
+        </div>
+      )}
+      <p className="text-blue-500">
+        ウェブサイト:{' '}
+        <a
+          href={placeDetails.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          {placeDetails.website}
+        </a>
+      </p>
+      {placeDetails.opening_hours && (
+        <div className="mt-4">
+          <h3 className="text-lg font-semibold">営業時間:</h3>
+          <ul className="list-disc list-inside">
+            {placeDetails.opening_hours.weekday_text.map((text, index) => (
+              <li key={index} className="text-gray-700">
+                {text}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   )
 }

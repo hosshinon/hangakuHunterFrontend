@@ -13,6 +13,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log('投稿ボタンがクリックされました')
     console.log(
       shop_id,
       title,

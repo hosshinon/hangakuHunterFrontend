@@ -10,23 +10,20 @@ export const postDiscount = async (
   // const startTime = new Date(`2000-01-01T${start_time}:00`).toISOString()
   // const endTime = new Date(`2000-01-01T${end_time}:00`).toISOString()
 
-  const res = await fetch(
-    `http://localhost:3000/api/v1/shops/${shop_id}/discounts/`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        shop_id,
-        title,
-        start_time,
-        end_time,
-        discount_rate,
-        description,
-      }),
+  const res = await fetch(`http://localhost:3000/api/v1/discounts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
+    body: JSON.stringify({
+      shop_id,
+      title,
+      start_time,
+      end_time,
+      discount_rate,
+      description,
+    }),
+  })
 
   if (!res.ok) {
     const errorData = await res.json()

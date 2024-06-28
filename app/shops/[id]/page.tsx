@@ -2,7 +2,7 @@ import React from 'react'
 import DiscountList from '@/app/components/DiscountList'
 import PostForm from '@/app/components/PostForm'
 import ShopInfo from '@/app/components/ShopInfo'
-import { getDetailShops } from '@/app/util/api/getDetailShop'
+import { getDetailShops } from '@/app/util/api/getDiscounts'
 
 const Shop = async ({ params }: { params: { id: number } }) => {
   const shop = await getDetailShops(params.id)
