@@ -1,7 +1,6 @@
 export type Shop = {
   place_id: string
   imageUrl: string
-  discounts: Discount[]
   id: number
   name: string
   postal_code: string

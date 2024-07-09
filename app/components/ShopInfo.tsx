@@ -1,37 +1,41 @@
 import Image from 'next/image'
 import React from 'react'
+import { PlaceDetails } from '../types/PlaceDetail'
 
-const ShopInfo = ({ placeDetails }) => {
+const ShopInfo = ({ placeDetails }: { placeDetails: PlaceDetails }) => {
   return (
-    <div className="card bg-base-100 shadow-xl">
-      <h2 className="card-title text-2xl font-bold">{placeDetails.name}</h2>
-      <p className="text-gray-600">{placeDetails.formatted_address}</p>
-      {placeDetails.photos && placeDetails.photos.length > 0 && (
-        <div className="my-4">
-          <Image
-            src={placeDetails.photos[0].getUrl()}
-            alt={placeDetails.name}
-            className="rounded-lg shadow-lg"
-            width={400}
-            height={300}
-          />
-        </div>
-      )}
-      <p className="text-blue-500">
-        ウェブサイト:{' '}
+    <div className="bg-white p-6 rounded-lg shadow-md flex">
+      <div className="flex-1">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2">
+          {placeDetails.name}
+        </h2>
+        <p className="text-gray-600 mb-4">{placeDetails.formatted_address}</p>
+        {placeDetails.photos && placeDetails.photos.length > 0 && (
+          <div className="mb-4">
+            <Image
+              src={placeDetails.photos[0].getUrl()}
+              alt={placeDetails.name}
+              className="rounded-lg shadow-sm"
+              width={400}
+              height={300}
+              objectFit="cover"
+            />
+          </div>
+        )}
         <a
           href={placeDetails.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline"
+          className="text-blue-500 hover:text-blue-700 transition duration-300 ease-in-out"
         >
-          {placeDetails.website}
+          ウェブサイトを見る
         </a>
-      </p>
+      </div>
+
       {placeDetails.opening_hours && (
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold">営業時間:</h3>
-          <ul className="list-disc list-inside">
+        <div className="ml-8 flex-shrink-0 w-64">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">営業時間</h3>
+          <ul className="space-y-1">
             {placeDetails.opening_hours.weekday_text.map((text, index) => (
               <li key={index} className="text-gray-700">
                 {text}

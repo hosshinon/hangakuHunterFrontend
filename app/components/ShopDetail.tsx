@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { PlaceDetails } from '../types/PlaceDetail'
 import { Shop } from '../types/Shop'
 import { getDiscounts } from '../util/api/getDiscounts'
 import DiscountList from './DiscountList'
@@ -12,13 +12,13 @@ type ShopDetailProps = {
 }
 
 const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
-  const [placeDetails, setPlaceDetails] = useState(null)
+  const [placeDetails, setPlaceDetails] = useState<PlaceDetails>()
   const [discounts, setDiscounts] = useState([])
 
   useEffect(() => {
     const getPlaceDetails = (placeId: string) => {
       const place = new google.maps.places.PlacesService(
-        document.createElement('div')
+        document.createElement('div'),
       )
       const request = {
         placeId: placeId,
