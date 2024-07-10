@@ -1,8 +1,70 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlaceDetails } from '../types/PlaceDetail'
 
-const ShopInfo = ({ placeDetails }: { placeDetails: PlaceDetails }) => {
+const ShopInfo = ({ shop_place_id }: { shop_place_id: string }) => {
+  const [placeDetails, setPlaceDetails] = useState<PlaceDetails | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const getPlaceDetails = async (placeId: string) => {
+      setIsLoading(true)
+      setError(null)
+      try {
+        const place = new google.maps.places.PlacesService(
+          document.createElement('div')
+        )
+        const request = {
+          placeId: placeId,
+          language: 'ja',
+          fields: [
+            'name',
+            'formatted_address',
+            'photos',
+            'plus_code',
+            'website',
+            'opening_hours',
+          ],
+        }
+        place.getDetails(request, (place, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+            setPlaceDetails({
+              name: place.name,
+              formatted_address: place.formatted_address,
+              photos: place.photos,
+              plus_code: place.plus_code,
+              website: place.website,
+              opening_hours: place.opening_hours,
+            })
+          } else {
+            setError('店舗情報の取得に失敗しました')
+          }
+          setIsLoading(false)
+        })
+      } catch (err) {
+        setError('エラーが発生しました')
+        setIsLoading(false)
+      }
+    }
+
+    if (shop_place_id) {
+      getPlaceDetails(shop_place_id)
+    }
+  }, [shop_place_id])
+
+  if (isLoading) {
+    return <div>読み込み中...</div>
+  }
+
+  if (error) {
+    return <div>{error}</div>
+  }
+
+  if (!placeDetails) {
+    return <div>店舗情報が見つかりませんでした</div>
+  }
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md flex">
       <div className="flex-1">

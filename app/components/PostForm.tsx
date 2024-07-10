@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { postDiscount } from '../util/api/postDiscount'
 
-const PostForm = ({ shop_id }: { shop_id: number }) => {
+const PostForm = ({ shop_place_id }: { shop_place_id: string }) => {
   const router = useRouter()
   const [title, setTitle] = useState<string>('')
   const [start_time, setStart_time] = useState<string>('')
@@ -15,7 +15,7 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
     e.preventDefault()
     console.log('投稿ボタンがクリックされました')
     console.log(
-      shop_id,
+      shop_place_id,
       title,
       start_time,
       end_time,
@@ -24,15 +24,13 @@ const PostForm = ({ shop_id }: { shop_id: number }) => {
     )
     try {
       await postDiscount(
-        shop_id,
+        shop_place_id,
         title,
         start_time,
         end_time,
         discount_rate,
         description,
       )
-
-      router.push('/')
       router.refresh()
     } catch (error) {
       console.error('投稿エラー:', error)

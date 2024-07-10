@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { PlaceDetails } from '../types/PlaceDetail'
 import { Shop } from '../types/Shop'
 import { getDiscounts } from '../util/api/getDiscounts'
 import DiscountList from './DiscountList'
@@ -12,48 +11,9 @@ type ShopDetailProps = {
 }
 
 const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
-  const [placeDetails, setPlaceDetails] = useState<PlaceDetails>()
   const [discounts, setDiscounts] = useState([])
 
   useEffect(() => {
-    const getPlaceDetails = (placeId: string) => {
-      const place = new google.maps.places.PlacesService(
-        document.createElement('div'),
-      )
-      const request = {
-        placeId: placeId,
-        language: 'ja',
-        fields: [
-          'name',
-          'formatted_address',
-          'photos',
-          'plus_code',
-          'website',
-          'opening_hours',
-        ],
-      }
-      place.getDetails(request, (place, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log('Details request result', place)
-          setPlaceDetails({
-            name: place.name,
-            formatted_address: place.formatted_address,
-            photos: place.photos,
-            plus_code: place.plus_code,
-            website: place.website,
-            opening_hours: place.opening_hours,
-          })
-        } else {
-          console.error('Details request failed:', status)
-          setPlaceDetails(null)
-        }
-      })
-    }
-
-    if (shop.place_id) {
-      getPlaceDetails(shop.place_id)
-    }
-
     // 割引情報を取得する
     const fetchDiscounts = async () => {
       try {
@@ -81,15 +41,9 @@ const ShopDetail = ({ shop, onBack }: ShopDetailProps) => {
         <button onClick={onBack} className="btn btn-secondary mb-4">
           戻る
         </button>
-        {placeDetails ? (
-          <>
-            <ShopInfo placeDetails={placeDetails} />
-            <DiscountList discounts={discounts} />
-            <PostForm shop_id={shop.place_id} />
-          </>
-        ) : (
-          <p>読み込み中...</p>
-        )}
+        <ShopInfo shop_place_id={shop.place_id} />
+        <DiscountList discounts={discounts} />
+        <PostForm shop_place_id={shop.place_id} />
       </div>
     </div>
   )

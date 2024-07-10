@@ -1,10 +1,25 @@
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { Discount } from '../types/Discount'
+import { deleteDiscount } from '../util/api/deleteDiscount'
+
 type DiscountListProps = {
   discounts: Discount[]
 }
 
 const DiscountList = ({ discounts }: DiscountListProps) => {
+  const router = useRouter()
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteDiscount(id)
+      console.log('割引情報を削除しました')
+      router.refresh()
+    } catch (error) {
+      console.error('削除中にエラーが発生しました:', error)
+    }
+  }
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">割引情報</h2>
@@ -41,6 +56,14 @@ const DiscountList = ({ discounts }: DiscountListProps) => {
                       minute: '2-digit',
                     })}
                   </p>
+                </div>
+                <div className="card-actions justify-end mt-4">
+                  <button
+                    onClick={() => handleDelete(discount.id)}
+                    className="btn btn-error btn-sm"
+                  >
+                    削除
+                  </button>
                 </div>
               </div>
             </div>
