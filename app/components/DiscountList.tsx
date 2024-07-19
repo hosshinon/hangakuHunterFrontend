@@ -1,17 +1,15 @@
+'use client'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { Discount } from '../types/Discount'
 import { deleteDiscount } from '../util/api/deleteDiscount'
 
-type DiscountListProps = {
-  discounts: Discount[]
-}
-
-const DiscountList = ({ discounts }: DiscountListProps) => {
+const DiscountList = ({ discounts }: { discounts: Discount[] }) => {
   const router = useRouter()
 
+  //割引情報を削除する
   const handleDelete = async (id: number) => {
     try {
+      console.log(id)
       await deleteDiscount(id)
       console.log('割引情報を削除しました')
       router.refresh()
@@ -36,26 +34,8 @@ const DiscountList = ({ discounts }: DiscountListProps) => {
                 </div>
                 <p>{discount.description}</p>
                 <div>
-                  <p>
-                    開始時間:{' '}
-                    {new Date(discount.start_time).toLocaleString('ja-JP', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
-                  <p>
-                    終了時間:{' '}
-                    {new Date(discount.end_time).toLocaleString('ja-JP', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
+                  <p>開始時間: {discount.start_time}</p>
+                  <p>終了時間: {discount.end_time}</p>
                 </div>
                 <div className="card-actions justify-end mt-4">
                   <button

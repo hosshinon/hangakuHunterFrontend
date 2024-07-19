@@ -1,20 +1,19 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
-import { Shop } from '../types/Shop'
 
 type ShopCardProps = {
   supermarkets: google.maps.places.PlaceResult[]
-  onSelectShop: (shop: Shop) => void
 }
 
-const ShopCard = ({ supermarkets, onSelectShop }: ShopCardProps) => {
+const ShopCard = ({ supermarkets }: ShopCardProps) => {
   console.log('supermarkets:', supermarkets)
   return (
     <>
       <h1 className="text-4xl font-bold mb-8 text-center">店舗一覧</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {supermarkets.map((shop) => (
-          <div key={shop.place_id} onClick={() => onSelectShop(shop)}>
+          <Link href={`/shop/${shop.place_id}`} key={shop.place_id}>
             <div className="card bg-base-100 shadow-xl h-full">
               <figure>
                 <Image
@@ -40,7 +39,7 @@ const ShopCard = ({ supermarkets, onSelectShop }: ShopCardProps) => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>

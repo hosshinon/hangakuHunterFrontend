@@ -1,69 +1,10 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { PlaceDetails } from '../types/PlaceDetail'
+import { getPhotoUrl } from '../util/api/getPlaceDetails'
 
-const ShopInfo = ({ shop_place_id }: { shop_place_id: string }) => {
-  const [placeDetails, setPlaceDetails] = useState<PlaceDetails | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const getPlaceDetails = async (placeId: string) => {
-      setIsLoading(true)
-      setError(null)
-      try {
-        const place = new google.maps.places.PlacesService(
-          document.createElement('div')
-        )
-        const request = {
-          placeId: placeId,
-          language: 'ja',
-          fields: [
-            'name',
-            'formatted_address',
-            'photos',
-            'plus_code',
-            'website',
-            'opening_hours',
-          ],
-        }
-        place.getDetails(request, (place, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && place) {
-            setPlaceDetails({
-              name: place.name,
-              formatted_address: place.formatted_address,
-              photos: place.photos,
-              plus_code: place.plus_code,
-              website: place.website,
-              opening_hours: place.opening_hours,
-            })
-          } else {
-            setError('店舗情報の取得に失敗しました')
-          }
-          setIsLoading(false)
-        })
-      } catch (err) {
-        setError('エラーが発生しました')
-        setIsLoading(false)
-      }
-    }
-
-    if (shop_place_id) {
-      getPlaceDetails(shop_place_id)
-    }
-  }, [shop_place_id])
-
-  if (isLoading) {
-    return <div>読み込み中...</div>
-  }
-
-  if (error) {
-    return <div>{error}</div>
-  }
-
-  if (!placeDetails) {
-    return <div>店舗情報が見つかりませんでした</div>
-  }
+const ShopInfo = ({ placeDetails }: { placeDetails: PlaceDetails }) => {
+  console.log('PlaceDetails data:', placeDetails)
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md flex">
@@ -75,12 +16,11 @@ const ShopInfo = ({ shop_place_id }: { shop_place_id: string }) => {
         {placeDetails.photos && placeDetails.photos.length > 0 && (
           <div className="mb-4">
             <Image
-              src={placeDetails.photos[0].getUrl()}
-              alt={placeDetails.name}
-              className="rounded-lg shadow-sm"
+              src={getPhotoUrl(placeDetails.photos[0].photo_reference)}
+              alt={placeDetails.name || '店舗画像'}
+              className="rounded-lg shadow-sm cover"
               width={400}
               height={300}
-              objectFit="cover"
             />
           </div>
         )}
