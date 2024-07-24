@@ -13,9 +13,10 @@ import L, { LatLngTuple } from 'leaflet'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LoadScript } from '@react-google-maps/api'
 import ShopCard from './ShopCard'
+import { usePathname } from 'next/navigation'
 
 // デフォルトのアイコンURLを設定
 delete L.Icon.Default.prototype._getIconUrl
@@ -41,22 +42,30 @@ const Map = () => {
   const [supermarkets, setSupermarkets] = useState<
     google.maps.places.PlaceResult[]
   >([])
+  const [key, setKey] = useState(0)
+  const pathname = usePathname
+  useEffect(() => {
+    // ページ遷移時にキーを更新してコンポーネントを再レンダリング
+    setKey((prevKey) => prevKey + 1)
+  }, [pathname])
+
   // clickイベントから現在地を取得するコンポーネント
   const LocationMarker = () => {
-    const handleClick = (e) => {
-      const newPosition: LatLngTuple = e.latlng
-      setPosition(newPosition)
-      fetchNearbySupermarkets(newPosition)
-    }
+    useMapEvents({
+      click: (e) => {
+        const newPosition: LatLngTuple = [e.latlng.lat, e.latlng.lng]
+        setPosition(newPosition)
+        fetchNearbySupermarkets(newPosition)
+      },
+    })
 
     const fetchNearbySupermarkets = (position: LatLngTuple) => {
       const service = new window.google.maps.places.PlacesService(
         document.createElement('div'),
       )
       const request = {
-        location: new window.google.maps.LatLng(position.lat, position.lng),
+        location: new window.google.maps.LatLng(position[0], position[1]),
         radius: InitRadius,
-        //type: ['supermarket'],
         keyword: 'スーパーマーケット',
       }
 
@@ -70,10 +79,6 @@ const Map = () => {
         }
       })
     }
-
-    useMapEvents({
-      click: handleClick,
-    })
 
     return position === null ? null : (
       <div>
@@ -97,8 +102,9 @@ const Map = () => {
       </div>
     )
   }
+
   return (
-    <div>
+    <div key={key}>
       <LoadScript
         googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
         libraries={libraries}
