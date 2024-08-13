@@ -17,6 +17,9 @@ import { useState, useEffect } from 'react'
 import { LoadScript } from '@react-google-maps/api'
 import ShopCard from './ShopCard'
 import { usePathname } from 'next/navigation'
+import AllDiscountList from './AllDiscountList'
+import { getAllDiscounts } from '../util/api/getAllDiscounts'
+import { Discount } from '../types/Discount'
 
 // デフォルトのアイコンURLを設定
 delete L.Icon.Default.prototype._getIconUrl
@@ -42,11 +45,26 @@ const Map = () => {
   const [supermarkets, setSupermarkets] = useState<
     google.maps.places.PlaceResult[]
   >([])
+  const [activeTab, setActiveTab] = useState('shops') // タブの状態を管理
+  const [discounts, setDiscounts] = useState<Discount[]>([])
   const [key, setKey] = useState(0)
-  const pathname = usePathname
+  const pathname = usePathname()
+
   useEffect(() => {
-    // ページ遷移時にキーを更新してコンポーネントを再レンダリング
     setKey((prevKey) => prevKey + 1)
+    const fetchDiscounts = async () => {
+      try {
+        const data = await getAllDiscounts()
+        console.log('取得した割引情報:', data) // デバッグ用にコンソールに出力
+        setDiscounts(data)
+      } catch (err) {
+        setError('割引情報の取得に失敗しました')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDiscounts()
   }, [pathname])
 
   // clickイベントから現在地を取得するコンポーネント
@@ -117,8 +135,27 @@ const Map = () => {
           <LocationMarker />
         </MapContainer>
       </LoadScript>
-
-      <ShopCard supermarkets={supermarkets} />
+      <div
+        role="tablist"
+        className="tabs tabs-boxed flex justify-center space-x-4 mb-8"
+      >
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'shops' ? 'tab-active' : ''}`}
+          onClick={() => setActiveTab('shops')}
+        >
+          店舗一覧
+        </a>
+        <a
+          role="tab"
+          className={`tab ${activeTab === 'discounts' ? 'tab-active' : ''}`}
+          onClick={() => setActiveTab('discounts')}
+        >
+          割引情報一覧
+        </a>
+      </div>
+      {activeTab === 'shops' && <ShopCard supermarkets={supermarkets} />}
+      {activeTab === 'discounts' && <AllDiscountList discounts={discounts} />}
     </div>
   )
 }

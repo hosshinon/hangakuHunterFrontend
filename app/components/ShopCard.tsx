@@ -10,7 +10,6 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
   console.log('supermarkets:', supermarkets)
   return (
     <>
-      <h1 className="text-4xl font-bold mb-8 text-center">店舗一覧</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {supermarkets.map((shop) => (
           <Link href={`/shop/${shop.place_id}`} key={shop.place_id}>
