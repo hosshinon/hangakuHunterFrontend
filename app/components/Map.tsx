@@ -53,15 +53,9 @@ const Map = () => {
   useEffect(() => {
     setKey((prevKey) => prevKey + 1)
     const fetchDiscounts = async () => {
-      try {
-        const data = await getAllDiscounts()
-        console.log('取得した割引情報:', data) // デバッグ用にコンソールに出力
-        setDiscounts(data)
-      } catch (err) {
-        setError('割引情報の取得に失敗しました')
-      } finally {
-        setLoading(false)
-      }
+      const data = await getAllDiscounts()
+      console.log('取得した割引情報:', data) // デバッグ用にコンソールに出力
+      setDiscounts(data)
     }
 
     fetchDiscounts()
@@ -79,7 +73,7 @@ const Map = () => {
 
     const fetchNearbySupermarkets = (position: LatLngTuple) => {
       const service = new window.google.maps.places.PlacesService(
-        document.createElement('div'),
+        document.createElement('div')
       )
       const request = {
         location: new window.google.maps.LatLng(position[0], position[1]),
@@ -115,7 +109,7 @@ const Map = () => {
             >
               <Popup>{market.name}</Popup>
             </Marker>
-          ) : null,
+          ) : null
         )}
       </div>
     )
