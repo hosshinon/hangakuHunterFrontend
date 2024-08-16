@@ -73,7 +73,7 @@ const Map = () => {
 
     const fetchNearbySupermarkets = (position: LatLngTuple) => {
       const service = new window.google.maps.places.PlacesService(
-        document.createElement('div')
+        document.createElement('div'),
       )
       const request = {
         location: new window.google.maps.LatLng(position[0], position[1]),
@@ -109,7 +109,7 @@ const Map = () => {
             >
               <Popup>{market.name}</Popup>
             </Marker>
-          ) : null
+          ) : null,
         )}
       </div>
     )

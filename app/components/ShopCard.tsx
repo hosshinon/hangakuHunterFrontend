@@ -19,7 +19,7 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
                   src={
                     shop.photos && shop.photos.length > 0
                       ? shop.photos[0].getUrl({ maxWidth: 400, maxHeight: 400 })
-                      : ''
+                      : '/public/sample_shop.jpg' // デフォルト画像のパス
                   }
                   alt={shop.name}
                   width={500}

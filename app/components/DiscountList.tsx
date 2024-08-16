@@ -17,6 +17,12 @@ const DiscountList = ({ discounts }: { discounts: Discount[] }) => {
       console.error('削除中にエラーが発生しました:', error)
     }
   }
+  //時間情報を修正する
+  const formatDate = (dateString: string) => {
+    const [datePart, timePart] = dateString.split('T')
+    const [hours, minutes] = timePart.split(':')
+    return `${datePart} ${hours}:${minutes}`
+  }
 
   return (
     <div>
@@ -34,8 +40,8 @@ const DiscountList = ({ discounts }: { discounts: Discount[] }) => {
                 </div>
                 <p>{discount.description}</p>
                 <div>
-                  <p>開始時間: {discount.start_time}</p>
-                  <p>終了時間: {discount.end_time}</p>
+                  <p>開始時間: {formatDate(discount.start_time)}</p>
+                  <p>終了時間: {formatDate(discount.end_time)}</p>
                 </div>
                 <div className="card-actions justify-end mt-4">
                   <button

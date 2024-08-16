@@ -31,6 +31,13 @@ const PostForm = ({ shop_place_id }: { shop_place_id: string }) => {
         discount_rate,
         description,
       )
+      //フォーム内を空にする
+      setTitle('')
+      setStart_time('')
+      setEnd_time('')
+      setDiscount_rate('')
+      setDescription('')
+      //投稿後に画面をリフレッシュ
       router.refresh()
     } catch (error) {
       console.error('投稿エラー:', error)

@@ -1,7 +1,7 @@
 export const getPlaceDetails = async (shop_place_id: string) => {
   try {
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Cformatted_address%2Cphotos%2Cplus_code%2Cwebsite%2Copening_hours&place_id=${shop_place_id}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&output?json`,
+      `https://maps.googleapis.com/maps/api/place/details/json?fields=name%2Cformatted_address%2Cphotos%2Cplus_code%2Cwebsite%2Copening_hours&place_id=${shop_place_id}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&output?json&language=ja`,
     )
     console.log('PlaceDetails res:', res)
     const data = await res.json()
