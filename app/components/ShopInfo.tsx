@@ -14,14 +14,38 @@ const ShopInfo = ({ placeDetails }: { placeDetails: PlaceDetails }) => {
         </h2>
         <p className="text-gray-600 mb-4">{placeDetails.formatted_address}</p>
         {placeDetails.photos && placeDetails.photos.length > 0 && (
-          <div className="mb-4">
-            <Image
-              src={getPhotoUrl(placeDetails.photos[0].photo_reference)}
-              alt={placeDetails.name || '店舗画像'}
-              className="rounded-lg shadow-sm cover"
-              width={400}
-              height={300}
-            />
+          <div className="carousel w-full mb-4">
+            {' '}
+            {/* 変更: カルーセルコンポーネントを追加 */}
+            {placeDetails.photos.map((photo, index) => (
+              <div
+                key={index}
+                id={`slide${index}`}
+                className="carousel-item relative w-full"
+                style={{ aspectRatio: '4 / 3' }} // 変更: アスペクト比を統一
+              >
+                <Image
+                  src={getPhotoUrl(photo.photo_reference)}
+                  alt={placeDetails.name || '店舗画像'}
+                  className="rounded-lg shadow-sm object-cover w-full h-full" // 変更: object-coverを追加
+                  layout="fill" // 変更: 画像をコンテナにフィットさせる
+                />
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                  <a
+                    href={`#slide${index === 0 ? placeDetails.photos.length - 1 : index - 1}`}
+                    className="btn btn-circle"
+                  >
+                    ❮
+                  </a>
+                  <a
+                    href={`#slide${index === placeDetails.photos.length - 1 ? 0 : index + 1}`}
+                    className="btn btn-circle"
+                  >
+                    ❯
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         )}
         <a
