@@ -56,7 +56,7 @@ const Map = () => {
   useEffect(() => {
     const fetchDiscounts = async () => {
       const data = await getAllDiscounts()
-      console.log('取得した割引情報:', data) // デバッグ用にコンソールに出力
+      console.log('取得した割引情報:', data)
       setDiscounts(data)
     }
 
