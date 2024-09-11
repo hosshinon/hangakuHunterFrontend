@@ -56,7 +56,6 @@ const Map = () => {
   useEffect(() => {
     const fetchDiscounts = async () => {
       const data = await getAllDiscounts()
-      console.log('取得した割引情報:', data)
       setDiscounts(data)
     }
 
@@ -77,7 +76,6 @@ const Map = () => {
 
     service.nearbySearch(request, (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.log('Nearby search results:', results)
         setSupermarkets(results)
       } else {
         console.error('Nearby search failed:', status)

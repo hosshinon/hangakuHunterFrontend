@@ -1,6 +1,5 @@
 export const getAllDiscounts = async () => {
   try {
-    console.log('getAllDiscountを実行しました')
     const res = await fetch(`http://localhost:3000/api/v1/discounts`, {
       cache: 'no-store',
     })

@@ -1,14 +1,16 @@
 export type Shop = {
-  place_id: string
-  imageUrl: string
-  id: number
   name: string
-  postal_code: string
-  address: string
-  opening_hours: string
-  homepage: string
-  latitude: number
-  longitude: number
-  created_at: string
-  updated_at: string
+  rating: number
+  user_ratings_total: number
+  formatted_address: string
+  international_phone_number: string
+  website: string
+  opening_hours: {
+    weekdayText: string[]
+  }
+  priceLevel: number
+  photos: {
+    photo_reference: string
+  }
+  types: string[]
 }

@@ -1,30 +1,37 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { Shop } from '../types/Shop'
 import { postDiscount } from '../util/api/postDiscount'
+import { postPlaceDetails } from '../util/api/postPlaceDetails'
 
-const PostForm = ({ shop_place_id }: { shop_place_id: string }) => {
+const PostForm = ({
+  placeId,
+  placeDetails,
+}: {
+  placeId: string
+  placeDetails: Shop
+}) => {
   const router = useRouter()
   const [title, setTitle] = useState<string>('')
   const [start_time, setStart_time] = useState<string>('')
   const [end_time, setEnd_time] = useState<string>('')
   const [discount_rate, setDiscount_rate] = useState<number>(0)
   const [description, setDescription] = useState<string>('')
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('投稿ボタンがクリックされました')
-    console.log(
-      shop_place_id,
-      title,
-      start_time,
-      end_time,
-      discount_rate,
-      description,
-    )
     try {
+      await postPlaceDetails(
+        placeId,
+        placeDetails.name,
+        placeDetails.rating,
+        placeDetails.user_ratings_total,
+        placeDetails.formatted_address,
+        placeDetails.international_phone_number,
+        placeDetails.website,
+      )
       await postDiscount(
-        shop_place_id,
+        placeId,
         title,
         start_time,
         end_time,

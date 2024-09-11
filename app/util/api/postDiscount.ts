@@ -1,6 +1,6 @@
 //割引情報を投稿するAPI
 export const postDiscount = async (
-  shop_id: string,
+  place_id: string,
   title: string,
   start_time: string,
   end_time: string,
@@ -16,7 +16,7 @@ export const postDiscount = async (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      shop_id,
+      place_id,
       title,
       start_time,
       end_time,

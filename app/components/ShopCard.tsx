@@ -7,7 +7,6 @@ type ShopCardProps = {
 }
 
 const ShopCard = ({ supermarkets }: ShopCardProps) => {
-  console.log('supermarkets:', supermarkets)
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -22,8 +21,13 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
                       : '/public/sample_shop.jpg' // デフォルト画像のパス
                   }
                   alt={shop.name}
-                  width={500}
-                  height={500}
+                  width={400}
+                  height={400}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    maxHeight: '180px',
+                  }}
                 />
               </figure>
               <div className="card-body h-full flex flex-col justify-between">

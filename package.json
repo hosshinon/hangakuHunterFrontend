@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir app",
-    "format": "next lint --fix --dir app"
+    "lint": "next lint --fix --dir app",
+    "format": "prettier --write './**/*.{js,ts,tsx,scss}'"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",

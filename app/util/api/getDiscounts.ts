@@ -1,6 +1,5 @@
 export const getDiscounts = async (shop_place_id: string) => {
   try {
-    console.log('getDiscountを実行しました')
     const res = await fetch(
       `http://host.docker.internal:3000/api/v1/discounts/${shop_place_id}`,
       {

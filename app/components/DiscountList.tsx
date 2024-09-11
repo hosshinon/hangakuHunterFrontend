@@ -9,9 +9,7 @@ const DiscountList = ({ discounts }: { discounts: Discount[] }) => {
   //割引情報を削除する
   const handleDelete = async (id: number) => {
     try {
-      console.log(id)
       await deleteDiscount(id)
-      console.log('割引情報を削除しました')
       router.refresh()
     } catch (error) {
       console.error('削除中にエラーが発生しました:', error)

@@ -15,7 +15,7 @@ const ShopPage = async ({ params }: { params: { id: string } }) => {
     <div className="container mx-auto py-8">
       <ShopInfo placeDetails={placeDetails} />
       <DiscountList discounts={discounts} />
-      <PostForm shop_place_id={params.id} />
+      <PostForm placeId={params.id} placeDetails={placeDetails} />
     </div>
   )
 }
