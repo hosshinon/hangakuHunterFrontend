@@ -6,9 +6,6 @@ import { getDiscounts } from '@/app/util/api/getDiscounts'
 import { getPlaceDetails } from '@/app/util/api/getPlaceDetails'
 
 const ShopPage = async ({ params }: { params: { id: string } }) => {
-  // 割引情報を取得する
-
-  console.log(`ショップコードを取得${params.id}`)
   const discounts = await getDiscounts(params.id)
   const placeDetails = await getPlaceDetails(params.id)
   return (
