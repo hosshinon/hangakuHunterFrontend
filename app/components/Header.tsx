@@ -3,14 +3,41 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className="navbar bg-base-100 rounded-box" data-theme="cupcake">
-      <div className="flex justify-center">
-        <Link href="/" className="btn btn-ghost normal-case text-xl">
-          半額ハンター
-        </Link>
-        <p className="text-center text-sm">わりびき情報共有サイト</p>
+    <header className="bg-[var(--color-light-green)] shadow-md">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-3xl">🥕</span>
+            <div>
+              <h1 className="text-2xl font-bold text-white">半額ハンター</h1>
+              <p className="text-sm text-[var(--color-cream)]">
+                わりびき情報共有サイト
+              </p>
+            </div>
+          </Link>
+          <nav>
+            <ul className="flex space-x-4">
+              <li>
+                <Link
+                  href="/"
+                  className="text-white hover:text-[var(--color-cream)] transition-colors"
+                >
+                  ホーム
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="text-white hover:text-[var(--color-cream)] transition-colors"
+                >
+                  サイトについて
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </header>
   )
 }
 
