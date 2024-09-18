@@ -11,6 +11,7 @@ export type Shop = {
   }
   priceLevel: number
   photos: {
+    length: number
     photo_reference: string
   }
   types: string[]
