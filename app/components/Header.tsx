@@ -25,14 +25,6 @@ const Header = () => {
                   ホーム
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-white hover:text-[var(--color-cream)] transition-colors"
-                >
-                  サイトについて
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>
