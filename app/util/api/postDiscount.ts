@@ -10,7 +10,7 @@ export const postDiscount = async (
   // const startTime = new Date(`2000-01-01T${start_time}:00`).toISOString()
   // const endTime = new Date(`2000-01-01T${end_time}:00`).toISOString()
 
-  const res = await fetch(`http://localhost:3000/api/v1/discounts`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/discounts`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

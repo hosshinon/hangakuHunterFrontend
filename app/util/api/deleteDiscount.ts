@@ -1,12 +1,15 @@
 //割引情報を削除する
 
 export const deleteDiscount = async (id: number) => {
-  const res = await fetch(`http://localhost:3000/api/v1/discounts/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/discounts/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  })
+  )
 
   if (!res.ok) {
     const errorData = await res.json()
