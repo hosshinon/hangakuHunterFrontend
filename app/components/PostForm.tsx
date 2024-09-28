@@ -47,7 +47,6 @@ const PostForm = ({
       router.refresh()
     } catch (error) {
       console.error('投稿エラー:', error)
-      alert(`フェッチに失敗しました: ${error.message}`)
     }
   }
 

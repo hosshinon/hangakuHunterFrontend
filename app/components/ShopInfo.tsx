@@ -7,40 +7,18 @@ const ShopInfo = ({ placeDetails }: { placeDetails: Shop }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="relative h-96">
-        {placeDetails.photos && placeDetails.photos.length > 0 ? (
-          <div className="carousel w-full">
-            {placeDetails.photos.map((photo, index) => (
-              <div
-                key={index}
-                id={`slide${index}`}
-                className="carousel-item relative w-full h-96"
-              >
-                <Image
-                  src={getPhotoUrl(photo.photo_reference)}
-                  alt={placeDetails.name}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                  <a
-                    href={`#slide${index === 0 ? placeDetails.photos.length - 1 : index - 1}`}
-                    className="btn btn-circle bg-white/50 hover:bg-white/80"
-                  >
-                    ❮
-                  </a>
-                  <a
-                    href={`#slide${index === placeDetails.photos.length - 1 ? 0 : index + 1}`}
-                    className="btn btn-circle bg-white/50 hover:bg-white/80"
-                  >
-                    ❯
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+        {placeDetails.photos &&
+        Array.isArray(placeDetails.photos) &&
+        placeDetails.photos.length > 0 ? (
+          <Image
+            src={getPhotoUrl(placeDetails.photos[0].photo_reference)}
+            alt={placeDetails.name}
+            fill
+            style={{ objectFit: 'cover' }}
+          />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-6xl text-gray-400">📷</span>
+            <span className="text-6xl text-gray-400"> </span>
           </div>
         )}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">

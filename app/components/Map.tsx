@@ -4,6 +4,7 @@ import {
   Marker,
   useJsApiLoader,
   InfoWindow,
+  Libraries,
 } from '@react-google-maps/api'
 import { usePathname } from 'next/navigation'
 import React, { useState, useEffect, useCallback } from 'react'
@@ -23,7 +24,7 @@ const InitPosition: google.maps.LatLngLiteral = {
   lng: 139.767125,
 }
 const InitRadius = 200
-const libraries = ['places']
+const libraries: Libraries = ['places']
 const mapOptions = {
   styles: [
     {
@@ -46,12 +47,10 @@ const Map = () => {
   const pathname = usePathname()
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
     libraries,
     language: 'ja',
   })
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [map, setMap] = useState<google.maps.Map | null>(null)
   useEffect(() => {
     const fetchDiscounts = async () => {
       const data = await getAllShops()
@@ -72,14 +71,20 @@ const Map = () => {
       keyword: 'スーパーマーケット',
     }
 
-    service.nearbySearch(request, (results, status) => {
-      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        setSupermarkets(results)
-      } else {
-        console.error('Nearby search failed:', status)
-        setSupermarkets([])
-      }
-    })
+    service.nearbySearch(
+      request,
+      (results: google.maps.places.PlaceResult[] | null, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          results
+        ) {
+          setSupermarkets(results)
+        } else {
+          console.error('Nearby search failed:', status)
+          setSupermarkets([])
+        }
+      },
+    )
   }
 
   //マップがクリックされた場所を取得
@@ -97,12 +102,9 @@ const Map = () => {
   const onLoad = useCallback((map: google.maps.Map) => {
     map.setCenter(InitPosition)
     map.setZoom(zoom)
-    setMap(map)
   }, [])
 
-  const onUnmount = useCallback(() => {
-    setMap(null)
-  }, [])
+  const onUnmount = useCallback(() => {}, [])
 
   // MAP上にスーパーをマークするコンポーネント
   const LocationMarker = () => {
@@ -128,8 +130,8 @@ const Map = () => {
         {selectedMarket && (
           <InfoWindow
             position={{
-              lat: selectedMarket.geometry.location.lat(),
-              lng: selectedMarket.geometry.location.lng(),
+              lat: selectedMarket?.geometry?.location?.lat() ?? 0,
+              lng: selectedMarket?.geometry?.location?.lng() ?? 0,
             }}
             onCloseClick={() => setSelectedMarket(null)}
           >
