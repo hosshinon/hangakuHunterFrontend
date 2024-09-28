@@ -29,7 +29,7 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
                           })
                         : ''
                     }
-                    alt={shop.name}
+                    alt={shop.name || ''}
                     width={400}
                     height={400}
                     style={{
