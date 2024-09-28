@@ -2,8 +2,13 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="py-2 px-4 border-t-4">
-      <small>@2024 hosshinon</small>
+    <footer
+      className="footer footer-center p-4 bg-base-300 text-base-content"
+      data-theme="cupcake"
+    >
+      <div>
+        <p>Copyright © 2023 - All rights reserved by hosshinon</p>
+      </div>
     </footer>
   )
 }

@@ -1,14 +1,12 @@
-//店舗一覧取得するAPI
 export const getAllShops = async () => {
   try {
-    const res = await fetch('http://127.0.0.1:3000/api/v1/shops', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/shops`, {
       cache: 'no-store',
     })
-    console.log(res)
-    const Shops = await res.json()
-    return Shops
+    const allShops = await res.json()
+    return allShops
   } catch (error) {
-    console.error('getAllShops API error:', error)
-    throw error // エラーを再投げして、呼び出し元でキャッチできるようにする
+    console.error('getDetailShop API error:', error)
+    return []
   }
 }
