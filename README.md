@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 半額ハンター
 
-## Getting Started
+## ◾サービス概要
+「半額ハンター」はスーパーマーケットの割引情報を共有できるサービスです。
+Googleマップからスーパーマーケットを検索して、割引情報を登録することが可能です。
+## ◾サービスのURL
+登録不要で使用することができます。
+ぜひ、スーパーの割引情報を登録してみてください。
+https://hangakuhunter.com/
+## ◾開発の背景
+一人暮らしの味方
+## ◾機能・画面説明
 
-First, run the development server:
+## ◾使用技術
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ◾インフラ構成図
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ◾ER図
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## ◾今後の展望

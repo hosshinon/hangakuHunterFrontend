@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -7,7 +8,12 @@ const Header = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-3xl">🥕</span>
+            <Image
+              src="/images/hangakuhunter_logo.png"
+              alt="Hangaku Hunter Logo"
+              width={50}
+              height={50}
+            />
             <div>
               <h1 className="text-2xl font-bold text-white">半額ハンター</h1>
               <p className="text-sm text-[var(--color-cream)]">
