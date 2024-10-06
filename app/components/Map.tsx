@@ -4,36 +4,21 @@ import {
   Marker,
   useJsApiLoader,
   InfoWindow,
-  Libraries,
 } from '@react-google-maps/api'
 import { usePathname } from 'next/navigation'
 import React, { useState, useEffect, useCallback } from 'react'
+import {
+  containerStyle,
+  InitPosition,
+  InitRadius,
+  libraries,
+  mapOptions,
+  zoom,
+} from '../mapstyle'
 import { Shop } from '../types/Shop'
 import { getAllShops } from '../util/api/getAllShops'
 import AllShopList from './AllShopList'
 import ShopCard from './ShopCard'
-
-// マップのスタイルを設定
-const containerStyle = {
-  width: '100%',
-  height: '50vh',
-}
-const zoom = 16
-const InitPosition: google.maps.LatLngLiteral = {
-  lat: 35.681236,
-  lng: 139.767125,
-}
-const InitRadius = 200
-const libraries: Libraries = ['places']
-const mapOptions = {
-  styles: [
-    {
-      featureType: 'poi',
-      elementType: 'all',
-      stylers: [{ visibility: 'off' }],
-    },
-  ],
-}
 
 // マップコンポーネント
 const Map = () => {
