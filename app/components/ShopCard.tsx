@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -15,11 +16,15 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
           <p>地図をタップしてね！</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {supermarkets.map((shop) => (
-            <Link href={`/shop/${shop.place_id}`} key={shop.place_id}>
-              <div className="card bg-base-100 shadow-xl h-full">
-                <figure>
+            <Link
+              href={`/shop/${shop.place_id}`}
+              key={shop.place_id}
+              className="block h-full"
+            >
+              <div className="card bg-base-100 shadow-xl h-full flex flex-col">
+                <figure className="h-40 overflow-hidden">
                   <Image
                     src={
                       shop.photos && shop.photos.length > 0
@@ -32,17 +37,17 @@ const ShopCard = ({ supermarkets }: ShopCardProps) => {
                     alt={shop.name || ''}
                     width={400}
                     height={400}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      maxHeight: '180px',
-                    }}
+                    className="object-cover w-full h-full"
                   />
                 </figure>
-                <div className="card-body h-full flex flex-col justify-between">
+                <div className="card-body p-4 flex-grow flex flex-col justify-between">
                   <div>
-                    <h2 className="card-title">{shop.name}</h2>
-                    <p>{shop.vicinity}</p>
+                    <h2 className="card-title text-base mb-2 line-clamp-1">
+                      {shop.name}
+                    </h2>
+                    <p className="text-sm line-clamp-2">{shop.vicinity}</p>
+                  </div>
+                  <div className="mt-2 text-sm">
                     <p>評価: {shop.rating}</p>
                     <p>
                       営業状況:
