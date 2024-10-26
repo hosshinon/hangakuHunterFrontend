@@ -18,7 +18,7 @@ const ShopInfo = ({ placeDetails }: { placeDetails: Shop }) => {
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-6xl text-gray-400"> </span>
+            <span className="text-6xl text-gray-400">No Image</span>
           </div>
         )}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
@@ -30,7 +30,7 @@ const ShopInfo = ({ placeDetails }: { placeDetails: Shop }) => {
         <div className="flex items-center mb-6">
           <span className="text-3xl text-yellow-400 mr-2">★</span>
           <span className="text-2xl font-semibold">
-            {placeDetails.rating.toFixed(1)}
+            {placeDetails.rating ? placeDetails.rating.toFixed(1) : 'N/A'}
           </span>
           <span className="text-lg text-gray-500 ml-2">
             ({placeDetails.user_ratings_total} レビュー)

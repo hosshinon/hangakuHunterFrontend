@@ -7,7 +7,7 @@ import { getPlaceDetails } from '@/app/util/api/getPlaceDetails'
 
 const ShopPage = async ({ params }: { params: { id: string } }) => {
   const discounts = await getDiscounts(params.id)
-  const placeDetails = await getPlaceDetails(params.id)
+  const placeDetails = (await getPlaceDetails(params.id)) || { photos: [] }
   return (
     <div className="container mx-auto py-8">
       <ShopInfo placeDetails={placeDetails} />
