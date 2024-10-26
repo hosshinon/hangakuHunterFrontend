@@ -3,7 +3,8 @@
 ## ◾サービス概要
 「半額ハンター」はスーパーマーケットの割引情報を共有できるサービスです。
 Googleマップからスーパーマーケットを検索して、割引情報を登録することが可能です。
-![スクリーンショット 2024-10-03 6 59 58](https://github.com/user-attachments/assets/c1ea66b4-93a5-4214-b865-4ceec6d4b149)
+![image](https://github.com/user-attachments/assets/8b9bed1b-41f3-40ce-808e-d23d4671f814)
+
 
 ## ◾サービスのURL
 登録不要で使用することができます。
@@ -35,9 +36,7 @@ https://hangakuhunter.com/
 ### インフラ
 - AWS(Route53 / Certificate Manager / ALB / VPC / ECR / ECS Fargate / RDS MySQL )
 - Nginx
-### CI 
-- GitHub Actions
-### 環境構築
+### CICD
 - GitHub Actions
 
 ## ◾インフラ構成図
