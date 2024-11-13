@@ -45,6 +45,9 @@ https://hangakuhunter.com/
 ## ◾ER図
 ![hangakuhunter_ER drawio](https://github.com/user-attachments/assets/e85d6937-da29-4d88-b74e-252dccbdfae4)
 
+## ◾バックエンドリポジトリ
+バックエンドリポジトリはこちらになります。
+https://github.com/hosshinon/hangakuHunterBackend
 
 ## ◾今後の展望
 ・ ログイン機能の追加
